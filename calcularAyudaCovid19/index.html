@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Inicio</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script>document.write('<script src="http://' + (location.host || '${1:localhost}').split(':')[0] + ':${2:35729}/livereload.js?snipver=1"></' + 'script>')</script>
+	
+</style>
+</head>
+<body style=" text-align: center; height: auto; width: auto;" class = "background">
+		<h1 class="h1"> </h1><br>
+		<h3><b>Cálculo del aporte</b></h3>
+		<h2><b>Cuenta Nacional de Asistencia Humanitaria</h2></p>
+		<h6><b>ECUADOR 2020</b></h6>
+		<img src="ecuador.jpg" style="height: 300px; width: 250px;">
+		<div class="container-fluid">
+				<label class="label">Ingresa tu sueldo: $</label> <input style="text-align: right;" type="number" id="inp_sueldo" ><br><br>
+				<p><b>Ejemplo: 2500,48</b></p>
+				<button id= "btn_calcular" class="btn-success" onclick="calcular()" >Calcular Aporte</button><br>
+		</div><br><br>
+		<div>
+			<p id="valor_sueldo"  >	</p>
+		</div>
+		<div>
+			<p id="par_calculo_mes"  >	</p>
+		</div>
+		<div>
+			<p id="par_calculo_mes9"  >	</p>
+		</div>
+		<img src="">
+
+		<img src="tabla.jpg" alt="valores ministerio" style="width: 600px;">
+		<p style="text-align: center;">Imagen tomada de Ecuavisa</p>
+		<p class="p1" >Cálculo en base a información difundida por Ministerio de Economía y Finanzas, 10 de abril de 2020</p>
+		<div style="color:white;" id="sfcp9sg9rhsw9t24lmtpa1nxxnkbzgjqeef"></div>
+<script type="text/javascript" src="https://counter1.stat.ovh/private/counter.js?c=p9sg9rhsw9t24lmtpa1nxxnkbzgjqeef&down=async" async></script>
+<noscript><a href="https://www.contadorvisitasgratis.com" title="contador de visitas html"><img src="https://counter1.stat.ovh/private/contadorvisitasgratis.php?c=p9sg9rhsw9t24lmtpa1nxxnkbzgjqeef" border="0" title="contador de visitas html" alt="contador de visitas html"></a></noscript>
+	<footer>DanySoft 2020. TODOS LOS DERECHOS RESERVADOS.   Contacto: dyanez4@outlook.com</footer>
+</body>
+
+<script>	
+	function calcular(){
+		var limite=[500,600,800,1000,1500,2500,3500,4500,5500,7500,10000,20000,50000,100000,250000,300000];
+		var contribucionTarifa=[0,2,3,9,19,57,137,222,312,412,652,1002,2602,8602,21102,66102];
+		var porcentajeExcedente = [0,0.01,0.03,0.05,0.075,0.08,0.085,0.9,0.1,0.12,0.14,0.16,0.2,0.25,0.3,0.35];
+		var valorPagopormes = 0;
+
+		var sueldo = document.getElementById("inp_sueldo").value;//obtengo el valor
+		document.getElementById("inp_sueldo").value = "";
+		sueldo	= parseFloat(sueldo);
+		if (!isNaN(sueldo) || sueldo>0) //validar que sea un valor valido
+		{
+			if(sueldo >= 500 && sueldo <= 250000){
+				for (var i = 0; i < limite.length; i++) {
+					if (sueldo >= limite[i] && sueldo < limite[i+1]){
+						valorPagopormes  = (sueldo-limite[i]) * porcentajeExcedente[i+1] + contribucionTarifa[i+1];
+						valorMeses = valorPagopormes*9;
+						valorPagopormes = valorPagopormes.toFixed(2);
+						valorMeses = valorMeses.toFixed(2);
+						sueldo = numberWithCommas(sueldo);
+						valorPagopormes = numberWithCommas(valorPagopormes);
+						valorMeses = numberWithCommas(valorMeses);
+						document.getElementById("valor_sueldo").innerHTML = "Sueldo: $"+sueldo; 
+						document.getElementById("par_calculo_mes").innerHTML = "Pago Mensual: $"+valorPagopormes
+						document.getElementById("par_calculo_mes9").innerHTML = "Pago x9 Meses: $"+valorMeses;
+						break;
+						}
+					}
+			}else{
+					alert("Ingresa un valor entre 500$ y 250000$ ;Recuerda si ganas menos de 500$ no aportas");
+			}
+		}else{
+			alert("Ingresa un valor válido...");
+		}
+	}
+
+
+	function numberWithCommas(x) {
+    	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
+
+
+
+
+</script>
+</html>
